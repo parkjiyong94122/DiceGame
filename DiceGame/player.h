@@ -6,4 +6,5 @@ struct player
 	int y = 0;
 	int mapPosition = 0;
 
+
 };
