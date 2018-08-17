@@ -1,58 +1,63 @@
 #include <stdio.h>									
 #include <Windows.h>									
-#include <conio.h>
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
+#include"player.h"
+
+#define MAPSIZE 5
+#define DESTINATION 36
+
 
 using namespace std;
+//좌표생성함수
 void gotoxy(int x, int y)
 {
 	COORD pos = { x,y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-// 6. 지름길,함정 만들기
-void moveShortCutOrTrap(int *mapPoint, int *x, int *y)
+//지름길 or 함정
+void moveShortCutOrTrap(player* p)
 {
-	if (*mapPoint == 4)
+	if (p->mapPosition == 4)
 	{
-		*x = *x - 12;
-		*y = *y + 6;
-		*mapPoint = 10;
+		p->x = p->x - 12;
+		p->y = p->y + 6;
+		p->mapPosition = 10;
 		gotoxy(50, 10);
 		cout << "지름길:4에서 10으로 이동" << endl;
 		Sleep(1000);
 	}
-	else if (*mapPoint == 22)
+	else if (p->mapPosition == 22)
 	{
-		*x = *x + 12;
-		*y = *y - 12;
-		*mapPoint = 8;
+		p->x = p->x + 12;
+		p->y = p->y - 12;
+		p->mapPosition = 8;
 		gotoxy(50, 10);
 		cout << "함정:22에서 8으로 이동 " << endl;
 		Sleep(1000);
 
 	}
-	else if (*mapPoint == 18)
+	else if (p->mapPosition == 18)
 	{
-		*y = *y + 9;
-		*mapPoint = 29;
+		p->y = p->y + 9;
+		p->mapPosition = 29;
 		gotoxy(50, 10);
 		cout << "지름길:18에서 29으로 이동 " << endl;
 		Sleep(1000);
 	}
-	else if (*mapPoint == 32)
+	else if (p->mapPosition == 32)
 	{
-		*y = *y - 12;
-		*mapPoint = 20;
+		p->y = p->y - 12;
+		p->mapPosition = 20;
 		gotoxy(50, 10);
 		cout << "함정:32에서 20으로 이동 " << endl;
 		Sleep(1000);
 	}
 }
 
-// 1. 주사위 게임을 할 맵을 만든다
+//맵그리기
 void drawmap()
 {
 	int i, j;
@@ -132,143 +137,175 @@ void drawmap()
 	}
 }
 
+void moveMap(int *diceNumber, player *p)
+{
+	for (int i = 0; i < *diceNumber; i++)
+	{
+		(p->mapPosition)++;
+		if ((p->mapPosition) == 1)
+		{
+			p->x = 2;
+			//p2,p1 값 분리 시간남으면
+			p->y = 2;
+		}
+		else
+		{
+			if ((p->mapPosition) % (MAPSIZE + 1) == 0 || (p->mapPosition) % (MAPSIZE + 1) == 1)
+				p->y = p->y + 3;
+			else if ((p->mapPosition) % ((MAPSIZE + 1) * 2) < MAPSIZE + 1) //맵 가로 크기 5 일경우 맵가로크기
+				p->x = p->x + 6;
+			else if ((p->mapPosition) % ((MAPSIZE + 1) * 2) > MAPSIZE + 1)
+				p->x = p->x - 6;
+		}
+		gotoxy(p->x, p->y);
+	}
+}
+
+void printLocationP(player *p1, player *p2)
+{
+	gotoxy(p1->x, p1->y);
+	cout << "○" << p1->mapPosition;
+	gotoxy(40, 8);
+	cout << "p1위치" << p1->mapPosition;
+	gotoxy(p2->x, p2->y);
+	cout << "●" << p2->mapPosition;
+	gotoxy(40, 9);
+	cout << "p2위치" << p2->mapPosition;
+	Sleep(300);
+}
+
+void drawDice(int *diceNumber)
+{
+	gotoxy(0, 0);
+	drawmap();
+	*diceNumber = rand() % 6 + 1;
+	gotoxy(40, 7);
+	cout << "주사위의 나온 수 :" << *diceNumber << endl;
+}
+
+int gameResult(player* p1, player* p2)
+{
+	if ((p1->mapPosition) >= DESTINATION || p2->mapPosition >= DESTINATION)
+	{
+		gotoxy(8, 35);
+
+		if (p1->mapPosition >= DESTINATION && p2->mapPosition >= DESTINATION && p1->mapPosition > p2->mapPosition)
+			cout << "1p가 승리" << endl;
+
+		else if (p1->mapPosition >= DESTINATION && p2->mapPosition >= DESTINATION && p1->mapPosition < p2->mapPosition)
+			cout << "2p가 승리" << endl;
+
+		else if (p1->mapPosition >= DESTINATION)
+			cout << "1p가 승리" << endl;
+
+		else if (p2->mapPosition >= DESTINATION)
+			cout << "2p가 승리" << endl;
+
+		else if (p1->mapPosition == p2->mapPosition)
+			cout << "무승부" << endl;
+
+		return 1;
+	}
+	else
+		return 0;
+}
+
+char choiceDarwDiceP1()
+{
+	char dice;
+	gotoxy(40, 5);
+	cout << "1p의 차례입니다 주사위를 굴려주세요(y)" << endl;
+	gotoxy(40, 6);
+	cin >> dice;
+	system("cls");
+	return dice;
+}
+char choiceDarwDiceP2()
+{
+	char dice;
+	gotoxy(40, 5);
+	cout << "2p의 차례입니다 주사위를 굴려주세요(y)" << endl;
+	gotoxy(40, 6);
+	cin >> dice;
+	system("cls");
+	return dice;
+}
+
+
+
 int main(void)
 {
-	int i;
-	int j;
-	srand(time(NULL));
-	int diceNumber1, diceNumber2;
-	char dice = 'y';
-	int p1Position = 0;	// 초기 맵
-	int	p2Position = 0;	// 초기 맵
-	int x1 = 0, y1 = 0; // 초기좌표 
-	int x2 = 0, y2 = 0;// 
 
+	srand(time(NULL));
+	int diceNumber;
+	char dice;
+	player p1, p2;
 
 	drawmap();
+
 	while (1)
 	{
-		// 2.주사위 던지기
+
+		dice = choiceDarwDiceP1();
+
 		if (dice == 'y')
 		{
-			gotoxy(40, 5);
-			cout << "1p의 차례입니다 주사위를 굴려주세요(y)" << endl;
-			gotoxy(40, 6);
-			cin >> dice;
-			system("cls");
-			drawmap();
-			diceNumber1 = rand() % 6 + 1;
-			gotoxy(40, 7);
-			cout << "주사위의 나온 수 :" << diceNumber1 << endl;
+			drawDice(&diceNumber);
 
-			// 3. 주사위 눈에 따라 말 움직이기
-			for (int i = 0; i < diceNumber1; i++)
+			moveMap(&diceNumber, &p1);
+			/*for (int i = 0; i < diceNumber1; i++)
+			{ㅁ
+			p1Position++;
+			if (x1 == 0 && y1 == 0)
 			{
-				p1Position++;
-				if (x1 == 0 && y1 == 0)
-				{
-					x1 = 2;
-					y1 = 2;
-				}
-				else
-				{
-
-					if (p1Position % 6 == 0 || p1Position % 6 == 1)
-						y1 = y1 + 3;
-					else if (p1Position % 12 < 6) //맵 가로 크기 5 일경우 맵가로크기
-						x1 = x1 + 6;
-					else if (p1Position % 12 > 6)
-						x1 = x1 - 6;
-				}
-				gotoxy(x1, y1);
-
+			x1 = 2;
+			y1 = 2;
 			}
-			cout << "○" << p1Position;
-			gotoxy(40, 8);
-			cout << "p1위치" << p1Position;
-			Sleep(300);
+			else
+			{
 
-			moveShortCutOrTrap(&p1Position, &x1, &y1);
+			if (p1Position % 6 == 0 || p1Position % 6 == 1)
+			y1 = y1 + 3;
+			else if (p1Position % 12 < 6) //맵 가로 크기 5 일경우 맵가로크기
+			x1 = x1 + 6;
+			else if (p1Position % 12 > 6)
+			x1 = x1 - 6;
+			}
 			gotoxy(x1, y1);
-			cout << "○" << p1Position;
-			gotoxy(40, 8);
-			cout << "p1위치" << p1Position;
 
-			Sleep(300);
-
-			// 4. 2p 생성
-			gotoxy(40, 5);
-			cout << "2p의 차례입니다 주사위를 굴려주세요(y)" << endl;
-			gotoxy(40, 6);
-			cin >> dice;
-			diceNumber2 = rand() % 6 + 1;
-			gotoxy(40, 7);
-			cout << "주사위의 나온 수 :" << diceNumber2 << endl;
-
-			for (int i = 0; i < diceNumber2; i++)
-			{
-				p2Position++;
-				if (x2 == 0 && y2 == 0)
-				{
-					x2 = 2;
-					y2 = 2;
-				}
-				else
-				{
-
-					if (p2Position % 6 == 0 || p2Position % 6 == 1)
-						y2 = y2 + 3;
-					else if (p2Position % 12 < 6) //맵 가로 크기 5 일경우 맵가로크기
-						x2 = x2 + 6;
-					else if (p2Position % 12 > 6)
-						x2 = x2 - 6;
-				}
-				gotoxy(x2, y2);
 			}
-			cout << "●" << p2Position;
-			gotoxy(40, 9);
-			cout << "p2위치" << p2Position;
+			*/
+
+			printLocationP(&p1, &p2);
+
+			moveShortCutOrTrap(&p1);
+
+			printLocationP(&p1, &p2);
+
+			dice = 0; // 초기화
+		}
+
+		dice = choiceDarwDiceP2();
+
+		if (dice == 'y')
+		{
+			drawDice(&diceNumber);
+
+			moveMap(&diceNumber, &p2);
+
+			printLocationP(&p1, &p2);
+
+			moveShortCutOrTrap(&p2);
+
+			printLocationP(&p1, &p2);
+
 			Sleep(300);
 
-			moveShortCutOrTrap(&p2Position, &x2, &y2);
-			gotoxy(x2, y2);
-			cout << "●" << p2Position;
-			gotoxy(40, 9);
-			cout << "p2위치" << p2Position;
-
-			Sleep(300);
-
-
 		}
 
-		// 5. 승리,패배 판별
-		if (p1Position >= 36)
-		{
-			p1Position = 36;
-			gotoxy(8, 35);
-			cout << "1p가 승리";
+		if (gameResult(&p1, &p2) == 1)
 			break;
-		}
-		else if (p2Position >= 36)
-		{
-			p2Position = 36;
-			gotoxy(8, 35);
-			cout << "2p가 승리";
-			break;
-		}
-		if (p1Position >= 36 && p2Position >= 36 && p1Position > p2Position)
-		{
-			gotoxy(8, 35);
-			cout << "1p가 승리";
-			break;
-		}
 
-		else if (p1Position >= 36 && p2Position >= 36 && p2Position > p1Position)
-		{
-			gotoxy(8, 35);
-			cout << "2p가 승리";
-			break;
-		}
-
+		//같이들어올 경우 더 멀리간 사람이 승리
 	}
 }
