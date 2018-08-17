@@ -139,10 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\dicegame.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\DrawDice.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\DrawMap.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\gotoxy.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\MoveMap.cpp" />
+    <ClCompile Include="D:\8월 17일\Project2\Result.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="player.h" />
+    <ClInclude Include="D:\8월 17일\Project2\main.h" />
+    <ClInclude Include="D:\8월 17일\Project2\player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
