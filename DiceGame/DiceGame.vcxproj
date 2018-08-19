@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\repos\Project2\Dice.cpp" />
-    <ClCompile Include="..\..\..\source\repos\Project2\gotoxy.cpp" />
-    <ClCompile Include="..\..\..\source\repos\Project2\main.cpp" />
-    <ClCompile Include="..\..\..\source\repos\Project2\Map.cpp" />
-    <ClCompile Include="..\..\..\source\repos\Project2\playerPosition.cpp" />
-    <ClCompile Include="..\..\..\source\repos\Project2\Result.cpp" />
+    <ClCompile Include="comparePlayer.cpp" />
+    <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="gotoxy.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="playerPosition.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\repos\Project2\Dice.h" />
-    <ClInclude Include="..\..\..\source\repos\Project2\main.h" />
-    <ClInclude Include="..\..\..\source\repos\Project2\Position.h" />
+    <ClInclude Include="Dice.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Position.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

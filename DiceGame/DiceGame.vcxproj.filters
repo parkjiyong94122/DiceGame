@@ -15,33 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\repos\Project2\Dice.cpp">
+    <ClCompile Include="comparePlayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\repos\Project2\gotoxy.cpp">
+    <ClCompile Include="Dice.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\repos\Project2\main.cpp">
+    <ClCompile Include="gotoxy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\repos\Project2\Map.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\repos\Project2\playerPosition.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\repos\Project2\Result.cpp">
+    <ClCompile Include="playerPosition.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\repos\Project2\Dice.h">
+    <ClInclude Include="Dice.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\repos\Project2\main.h">
+    <ClInclude Include="main.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\repos\Project2\Position.h">
+    <ClInclude Include="Position.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
