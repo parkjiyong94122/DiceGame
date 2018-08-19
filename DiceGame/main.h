@@ -4,9 +4,7 @@
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
-#include"Position.h"
-#include"Dice.h"
-
+#include"player.h"
 
 
 #define MAPSIZE 5
@@ -14,18 +12,14 @@
 
 using namespace std;
 
+
 void gotoxy(int x, int y);
+void moveShortCutOrTrap(player* p);
 void drawmap();
-void printLocationP(position *p1, position *p2);
-int gameResult(position* p1, position* p2);
-/*
-
-void moveShortCutOrTrap(position* p);
-
-void moveMap(int *diceNumber, position *p);
-
+void moveMap(int *diceNumber, player *p);
+void printLocationP(player *p1, player *p2);
 void drawDice(int *diceNumber);
-
+int gameResult(player* p1, player* p2);
 char choiceDarwDiceP1();
 char choiceDarwDiceP2();
-*/
+

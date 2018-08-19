@@ -19,17 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="comparePlayer.cpp" />
-    <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="dicegame.cpp" />
+    <ClCompile Include="DrawDice.cpp" />
+    <ClCompile Include="DrawMap.cpp" />
     <ClCompile Include="gotoxy.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="playerPosition.cpp" />
+    <ClCompile Include="MoveMap.cpp" />
+    <ClCompile Include="Result.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Dice.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Position.h" />
+    <ClInclude Include="player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
