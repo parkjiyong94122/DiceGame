@@ -1,24 +1,25 @@
 #include"main.h"
 
-int gameResult(player* p1, player* p2)
+
+int arriveLocation(location* p1, location* p2)
 {
-	if ((p1->mapPosition) >= DESTINATION || p2->mapPosition >= DESTINATION)
+	if ((p1->mapLocation) >= DESTINATION || p2->mapLocation >= DESTINATION)
 	{
-		gotoxy(8, 35);
+		gotoxy(15, 40);
 
-		if (p1->mapPosition >= DESTINATION && p2->mapPosition >= DESTINATION && p1->mapPosition > p2->mapPosition)
+		if (p1->mapLocation >= DESTINATION && p2->mapLocation >= DESTINATION && p1->mapLocation > p2->mapLocation)
 			cout << "1p啊 铰府" << endl;
 
-		else if (p1->mapPosition >= DESTINATION && p2->mapPosition >= DESTINATION && p1->mapPosition < p2->mapPosition)
+		else if (p1->mapLocation >= DESTINATION && p2->mapLocation >= DESTINATION && p1->mapLocation < p2->mapLocation)
 			cout << "2p啊 铰府" << endl;
 
-		else if (p1->mapPosition >= DESTINATION)
+		else if (p1->mapLocation >= DESTINATION)
 			cout << "1p啊 铰府" << endl;
 
-		else if (p2->mapPosition >= DESTINATION)
+		else if (p2->mapLocation >= DESTINATION)
 			cout << "2p啊 铰府" << endl;
 
-		else if (p1->mapPosition == p2->mapPosition)
+		else if (p1->mapLocation == p2->mapLocation)
 			cout << "公铰何" << endl;
 
 		return 1;
@@ -26,3 +27,4 @@ int gameResult(player* p1, player* p2)
 	else
 		return 0;
 }
+
